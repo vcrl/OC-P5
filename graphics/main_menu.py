@@ -2,7 +2,7 @@ import sys
 from time import sleep
 from .menu_option1 import Menu_Option1
 from .menu_option2 import Menu_Option2
-from ..display.display import Display
+from .display import Display
 from ..api.api import Api_Management
 from ..database.db_exec import Database_Executions
 from ..constants.constants import CATEGORIES, ERROR, MENU
