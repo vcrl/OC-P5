@@ -1,7 +1,7 @@
 import requests
-from ..database.db_exec import Database_Executions
-from ..constants.constants import CATEGORIES, PRODUCTS_NB
-from ..constants.constants import DB_HOST, DB_USER, DB_PSWD, DB_DB
+from database.db_exec import Database_Executions
+from constants.constants import CATEGORIES, PRODUCTS_NB
+from constants.constants import DB_HOST, DB_USER, DB_PSWD, DB_DB
 
 class Api_Management():
     def __init__(self):

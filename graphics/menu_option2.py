@@ -1,5 +1,5 @@
-from ..constants.constants import MENU, ERROR
-from .main_menu import Main_Menu
+from constants.constants import MENU, ERROR
+from graphics.main_menu import Main_Menu
 
 class Menu_Option2:
     def __init__(self):

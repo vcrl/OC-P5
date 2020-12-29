@@ -1,7 +1,7 @@
 import mysql.connector as mysql
 import requests
-from ..constants.constants import CATEGORIES, PRODUCTS_NB
-from ..constants.constants import DB_HOST, DB_USER, DB_PSWD, DB_DB
+from constants.constants import CATEGORIES, PRODUCTS_NB
+from constants.constants import DB_HOST, DB_USER, DB_PSWD, DB_DB
 
 class Database_Executions:
     def __init__(self):
