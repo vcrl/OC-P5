@@ -1,9 +1,14 @@
 from constants.constants import MENU, ERROR
+from database.db_exec import Database_Executions
+from api.api import Api_Management
+from graphics.display import Display
 from graphics.main_menu import Main_Menu
 
 class Menu_Option1:
     def __init__(self):
-        self.main = Main_Menu()
+        self.db = Database_Executions()
+        self.display = Display()
+        self.api = Api_Management()
 
     def option_1(self):
         """

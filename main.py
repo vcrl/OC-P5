@@ -1,5 +1,5 @@
-from graphics.main_menu import Main_Menu
+from graphics.menus import Menus
 
 if __name__ == "__main__":
-    launch = Main_Menu()
+    launch = Menus()
     launch.show_main_menu()

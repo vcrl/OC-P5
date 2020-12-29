@@ -22,7 +22,7 @@ class Database_Executions:
 
     def reset(self):
         cursor = self.db.cursor(buffered=True)
-        with open('db.sql', 'r') as f:
+        with open('.\database\db.sql', 'r') as f:
             split_queries = f.read().split(';')
             for command in split_queries:
                 if command.strip():
