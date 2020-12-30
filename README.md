@@ -26,7 +26,7 @@ L'option 3 - qui n'est que disponible au lancement du programme pour des raisons
 Pour utiliser une base de donnée personnalisée, rien de plus simple. 
   1. Naviguez dans le fichier constants.py
   
-      /consants/constants.py
+      /contsants/constants.py
   
   2. Suivez les instructions énumérées à partir de la ligne 129.
   
