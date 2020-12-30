@@ -125,6 +125,16 @@ MENU = {
 # Variables contenant les informations de connexion à la base de donnée
 # Ces informations sont modifiables librement par l'utilisateur sauf DB_DB
 # Seul le module db.exec.py a accès à ces informations
+#
+# Pour modifier ces informations, suivez ces instructions :
+#
+# 1. Modifiez la variable DB_HOST avec l'hôte de votre base de donnée
+# entre guillements.
+# 2. Modifiez la variable DB_USER avec le nom d'utilisateur de votre
+# base de donnée entre guillemets.
+# 3. Modifiez la variable DB_PSWD avec le mot de passe de l'utilisateur
+# de votre base de donnée entre guillemets.
+# 4. ! Ne modifiez pas DB_DB !
 DB_HOST = "localhost"
 DB_USER = "root"
 DB_PSWD = "root"
