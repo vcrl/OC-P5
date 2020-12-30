@@ -20,15 +20,13 @@ En lancez le programme, vous tomberez sur le menu principal qui vous proposera t
 
 L'option 1 vous permettra de sélectionner un aliment parmi une liste, et d'enregistrer un substitut à celui-ci.
 L'option 2 vous permettra de retrouver les substituts que vous avez enregistré.
-L'otpion 3 - qui n'est que disponible au lancement du programme pour des raisons de stabilité - vous permet de réinialiser la base de donnée. (attention, ça supprime tous vos substituts !)
+L'option 3 - qui n'est que disponible au lancement du programme pour des raisons de stabilité - vous permet de réinitialiser la base de donnée. (attention, ça supprime tous vos substituts !)
 
 ## Utiliser une base de donnée personnalisée
 Pour utiliser une base de donnée personnalisée, rien de plus simple. 
   1. Naviguez dans le fichier constants.py
   
-      main.py
-        |- /constants
-              |-constants.py <- Ce fichier.
+      /consants/constants.py
   
   2. Suivez les instructions énumérées à partir de la ligne 129.
   
