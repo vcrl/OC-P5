@@ -1,18 +1,54 @@
 import sys
 from time import sleep
 from graphics.display import Display
-from api.api import Api_Management
+from api.category import Category
 from database.db_exec import Database_Executions
-from constants.constants import CATEGORIES, ERROR, MENU
-from constants.constants import DB_HOST, DB_USER, DB_PSWD, DB_DB
+from constants.constants import ERROR, MENU
 
 class Menus:
+    """
+    Classe permettant l'affichage des menus
+    et la navigation dans le programme.
+    Méthodes:
+    * show_main_menu:
+        - Affiche le menu principal avec une
+        boucle, et prend les inputs des
+        utilisateurs.
+
+    * option_1:
+        - Affiche le menu 1 avec une
+        boucle, et prend les inputs des
+        utilisateurs
+    
+    * option_1_2:
+        - Affiche le menu 1_2 avec une
+        boucle, et prend les inputs des
+        utilisateurs
+
+    * option_1_2_1:
+        - Affiche le menu 1_2 avec une
+        boucle, et prend les inputs des
+        utilisateurs
+    """
     def __init__(self):
         self.db = Database_Executions()
         self.display = Display()
-        self.api = Api_Management()
+        self.category = Category()
 
     def show_main_menu(self, from_start=True):
+        """
+        Méthode permettant l'affichage du menu principal
+        avec une boucle, et prend les inputs des
+        utilisateurs.
+        Selons les inputs, la boucle est cassée et le
+        programme passe à la méthode option_1.
+        Arguments:
+        * from_start = True:
+            - Permet d'afficher l'option 'réinitialiser'
+            uniquement si le menu est affiché à l'ouverture
+            du programme, pour des raisons de performances.
+        """
+
         menu_choice = ['0', '1', '2', '3']
         if not from_start:
             menu = MENU["!main_from_start"] # Menu principal
@@ -33,7 +69,7 @@ class Menus:
             if from_start:
                 if choice == '3':
                     self.db.reset()
-                    self.api.create_categories()
+                    self.category.create_categories()
                     print("<La base de donnée a bien été réinitialisée.>")
 
             if choice == '0':
@@ -42,10 +78,14 @@ class Menus:
                 sys.exit()
 
     def option_1(self):
+        """"
+        Méthode permettant l'affichage du menu option_1
+        avec une boucle, permettant à l'utilisateur
+        de sélectionner une catégorie de produit.
+        Selons les inputs, la boucle est cassée et le
+        programme passe à la méthode option_1_2.
         """
-        L'utilisateur choisit une catégorie
-        -> ça passe a option 1_2 une fois choisie
-        """
+
         menu_choice = ['0', '1', '2', '3', '4', '5']
         menu = MENU['option_1']
         while True:
@@ -63,10 +103,19 @@ class Menus:
 
     def option_1_2(self, category):
         """
-        Affichage des produits de la catégorie
-        -> L'utilisateur doit saisir un ID
-        -> option_1_2_1
+        Méthode permettant l'affichage du 1_2
+        avec une boucle, permettant à l'utilisateur
+        de choisir un produit dans la catégorie qu'il
+        a sélectionné.
+        Selons les inputs, la boucle est cassée et le
+        programme passe à la méthode option_1_2_1.
+        Arguments:
+        * category:
+            - Permet d'accéder à la variable category
+            passée par la méthode option_1, permettant
+            d'afficher les produits de la bonne catégorie.
         """
+
         result = self.db.execute_query_with_return(
             f"""
             SELECT * FROM product
@@ -97,12 +146,33 @@ class Menus:
     
     def option_1_2_1(self, product_id, product_name, category):
         """
-        Affichage des substituts du produit
-        -> L'utilisateur doit saisir un ID
-        -> Enregistrement dans la BDD substitut
-        -> Msg de confirmation
-        -> Retour au menu
+        Méthode permettant l'affichage du 1_2_1
+        avec une boucle, permettant à l'utilisateur
+        de choisir un substitut du produit choisit
+        dans la catégorie qu'il a sélectionné.
+        Selons les inputs, la boucle est cassée et le
+        programme passe à la méthode show_main_menu.
+        Arguments:
+        * product_id:
+            - Permet d'accéder à la variable product_id
+            passée par la méthode option_1 (choice), afin
+            de savoir quel produit initial l'utilisateur a
+            choisit.
+        
+        * product_name:
+            - Permet d'accéder à la variable product_name
+            passée par la méthode option_1 (x[1]), afin
+            de savoir le nom produit initial l'utilisateur a
+            choisit, pour que les substituts soient liés à
+            ce produits.
+        
+        * category:
+            - Permet d'accéder à la variable category
+            passée par la méthode option_1 (category), afin
+            de connaître la catégorie dans laquelle afficher
+            les produits.
         """
+
         product_name = product_name.split()
         result = self.db.execute_query_with_return(
             f"""
@@ -137,9 +207,13 @@ class Menus:
 
     def option_2(self):
         """
-        Affichage des substituts enregistrés
-        -> Retour au menu
+        Méthode permettant l'affichage du menu 2
+        avec une boucle, permettant au programme
+        d'afficher les substituts enregistrés.
+        La méthode ne prend qu'un input, qui doit
+        être '0' pour revenir au menu principal.
         """
+
         menu_choice = ['0']
         menu = MENU["option_2_2"]
         while True:

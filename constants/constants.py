@@ -1,4 +1,5 @@
-# API information
+# Dictionnaire contenant les catégories de produit à utiliser selon leur ID
+# Ce dictionnaire est récupéré par le module api.py
 CATEGORIES = {
     1: "Boissons",
     2: "Snacks",
@@ -8,12 +9,15 @@ CATEGORIES = {
 }
 PRODUCTS_NB = 150
 
-# Errors
+# Dictionnaire contenant les messages d'erreurs à utiliser selon leur ID
+# Il ne s'agit que de la partie graphique
 ERROR = {
     'invalid_choice' : "ERREUR: Votre choix est incorrect. Veuillez réessayer.",
     'connection_problem' : "ERREUR: Impossible d'accéder à la base de donnée. Vérifiez votre connexion internet et réessayez"
 }
 
+# Dictionnaire contenant la partie graphique des menus selon leur ID
+# L'ID des dictionnaire correspond à une méthode du module menus.py
 MENU = {
     'main_from_start' : """
     ####################################################################################
@@ -86,8 +90,11 @@ MENU = {
     """,
 }
 
-# Database information
+# Variables contenant les informations de connexion à la base de donnée
+# Ces informations sont modifiables librement par l'utilisateur sauf DB_DB
+# Seul le module db.exec.py a accès à ces informations
 DB_HOST = "localhost"
 DB_USER = "root"
 DB_PSWD = "root"
+# ! Ne pas modifier la variable DB_DB !
 DB_DB = "mydb"
