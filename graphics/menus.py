@@ -49,10 +49,12 @@ class Menus:
             du programme, pour des raisons de performances.
         """
 
+        self.clear_console()
         menu_choice = ['0', '1', '2', '3']
         if not from_start:
             menu = MENU["!main_from_start"] # Menu principal
-        menu = MENU["main_from_start"]
+        else:
+            menu = MENU["main_from_start"]
         while True:
             choice = ""
             while choice not in menu_choice:
@@ -70,6 +72,7 @@ class Menus:
                 if choice == '3':
                     self.db.reset()
                     self.category.create_categories()
+                    self.clear_console()
                     print("<La base de donnée a bien été réinitialisée.>")
 
             if choice == '0':
@@ -86,6 +89,7 @@ class Menus:
         programme passe à la méthode option_1_2.
         """
 
+        self.clear_console()
         menu_choice = ['0', '1', '2', '3', '4', '5']
         menu = MENU['option_1']
         while True:
@@ -116,6 +120,7 @@ class Menus:
             d'afficher les produits de la bonne catégorie.
         """
 
+        self.clear_console()
         result = self.db.execute_query_with_return(
             f"""
             SELECT * FROM product
@@ -173,14 +178,14 @@ class Menus:
             les produits.
         """
 
+        self.clear_console()
         product_name = product_name.split()
         result = self.db.execute_query_with_return(
             f"""
             SELECT * FROM product 
-            WHERE category_id={category} 
-            AND name LIKE '{product_name[0]}%'
-            AND nutriscore = 'a' OR nutriscore = 'b' 
-            ORDER BY nutriscore;
+            WHERE name LIKE '%{product_name[0]}%'
+            AND category_id = '{category}'
+            ORDER BY -nutriscore;
             """
             )
         menu_choice = []
@@ -188,10 +193,13 @@ class Menus:
             choice = ""
             while choice == "":
                 for x in result:
-                    self.display.display_products(
-                        x[0], x[1], x[2], x[6]
-                    )
-                    menu_choice.append(str(x[0]))
+                    try:
+                        self.display.display_products(
+                            x[0], x[1], x[2], x[6]
+                        )
+                        menu_choice.append(str(x[0]))
+                    except ValueError:
+                        print(ERROR['no_products'])
                 menu_choice.append('0')
                 choice = input(MENU["option_1_2_1"])
                 if choice not in menu_choice:
@@ -214,6 +222,7 @@ class Menus:
         être '0' pour revenir au menu principal.
         """
 
+        self.clear_console()
         menu_choice = ['0']
         menu = MENU["option_2_2"]
         while True:
@@ -221,24 +230,37 @@ class Menus:
             while choice not in menu_choice:
                 print(MENU["option_2_1"])
                 result = self.db.execute_query_with_return("SELECT * FROM substitute;")
-                for x in result:
-                    old_product = self.db.execute_query_with_return(
-                        f"""
-                        SELECT * FROM product WHERE product_id={x[0]};
-                        """
-                    )
-                    substitute = self.db.execute_query_with_return(
-                        f"""
-                        SELECT * FROM product WHERE product_id={x[1]};
-                        """
-                    )
-                    self.display.display_subtitutes(
-                        old_product[0][1], old_product[0][2], old_product[0][6],
-                        substitute[0][1], substitute[0][2], substitute[0][6]
-                    )
+                if result:
+                    for x in result:
+                        old_product = self.db.execute_query_with_return(
+                            f"""
+                            SELECT * FROM product WHERE product_id={x[0]};
+                            """
+                        )
+                        substitute = self.db.execute_query_with_return(
+                            f"""
+                            SELECT * FROM product WHERE product_id={x[1]};
+                            """
+                        )
+                        self.display.display_subtitutes(
+                            old_product[0][1], old_product[0][2], old_product[0][6],
+                            substitute[0][1], substitute[0][2], substitute[0][6]
+                        )
+                else:
+                    print(ERROR['empty'])
                 choice = input(menu)
                 if choice not in menu_choice:
                     print(ERROR["invalid_choice"])
                 
             if choice == "0":
-                self.show_main_menu()
+                self.show_main_menu(from_start=False)
+    
+    def clear_console(self):
+        """"
+        Méthode permettant de nettoyer la
+        console pour un affichage plus
+        agréable.
+        """
+
+        for i in range(100):
+            print('\n')
