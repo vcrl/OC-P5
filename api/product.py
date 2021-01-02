@@ -1,3 +1,7 @@
+"""
+Module contenant la classe Product, qui gère
+l'ajout des produits en base de donnée
+"""
 import requests
 from database.db_exec import Database_Executions
 from api.api import Api_Management
@@ -43,11 +47,11 @@ class Product():
         for product in response['products']:
             total = len(product)
             percentage_index += 1
-            current_percentage = int(percentage_index / total * 100)
+            #current_percentage = int(percentage_index / total * 100)
             self.db.printProgressBar(percentage_index, total, prefix=f'Chargement...', suffix=category)
             try:
                 self.db.execute_query("INSERT INTO product (name, brand, description, shop, link, nutriscore, category_id) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                        (product['generic_name_fr'], product['brands'], product['ingredients_text_debug'], product['generic_name_fr'],
+                        (product['generic_name_fr'], product['brands'], product['ingredients_text_debug'], product['stores'],
                         product['image_front_url'], product['nutriscore_grade'], cat_keys_list[position]))
                 self.db.execute_query(f"DELETE FROM product WHERE name = '' OR description = '';")
             except KeyError:

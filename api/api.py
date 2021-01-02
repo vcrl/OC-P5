@@ -1,3 +1,7 @@
+"""
+Module contenant la classe Api_Management, qui gère
+les requêtes à l'API d'OpenFoodFact
+"""
 import requests
 from database.db_exec import Database_Executions
 from constants.constants import CATEGORIES, PRODUCTS_NB

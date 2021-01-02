@@ -1,3 +1,7 @@
+"""
+Module permettant la gestion des menus,
+et la navigation dans le programme.
+"""
 import sys
 from time import sleep
 from graphics.display import Display
@@ -244,7 +248,8 @@ class Menus:
                         )
                         self.display.display_subtitutes(
                             old_product[0][1], old_product[0][2], old_product[0][6],
-                            substitute[0][1], substitute[0][2], substitute[0][6]
+                            substitute[0][1], substitute[0][2], substitute[0][6],
+                            substitute[0][4], substitute[0][5]
                         )
                 else:
                     print(ERROR['empty'])

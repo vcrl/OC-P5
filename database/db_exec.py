@@ -1,3 +1,7 @@
+"""
+Module contenant la classe Database_Execution, qui gère
+les requêtes et l'ajout des données dans la base de donnée
+"""
 import mysql.connector as mysql
 import requests
 from constants.constants import CATEGORIES, PRODUCTS_NB

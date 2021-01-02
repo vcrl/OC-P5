@@ -1,3 +1,7 @@
+"""
+Module contenant la classe Category, qui gère
+l'ajout des catégories en base de donnée
+"""
 import requests
 from database.db_exec import Database_Executions
 from api.api import Api_Management
