@@ -127,11 +127,13 @@ class Menus:
         self.clear_console()
         result = self.db.execute_query_with_return(
             f"""
-            SELECT * FROM product
+            SELECT * FROM category_has_product 
+            INNER JOIN product ON 
+            category_has_product.product_id = product.product_id
             WHERE category_id={category}
-            AND NOT nutriscore = 'a'
-            AND NOT nutriscore = 'b'
-            ORDER BY nutriscore;
+            AND NOT product.nutriscore = 'a'
+            AND NOT product.nutriscore = 'b'
+            ORDER BY product.nutriscore;
             """
             )
         menu_choice = []
@@ -140,9 +142,9 @@ class Menus:
             while choice == "":
                 for x in result:
                     self.display.display_products(
-                        x[0], x[1], x[2], x[6]
+                        x[1], x[3], x[4], x[8]
                     )
-                    menu_choice.append(str(x[0]))
+                    menu_choice.append(str(x[1]))
                 menu_choice.append('0')
                 choice = input(MENU["option_1_2"])
                 if choice not in menu_choice:
@@ -151,7 +153,7 @@ class Menus:
                 self.show_main_menu(from_start=False)
             
             if choice in menu_choice:
-                self.option_1_2_1(choice, x[1], category)
+                self.option_1_2_1(choice, x[3], category)
     
     def option_1_2_1(self, product_id, product_name, category):
         """
@@ -186,10 +188,12 @@ class Menus:
         product_name = product_name.split()
         result = self.db.execute_query_with_return(
             f"""
-            SELECT * FROM product 
+             SELECT * FROM category_has_product 
+            INNER JOIN product ON 
+            category_has_product.product_id = product.product_id 
             WHERE name LIKE '%{product_name[0]}%'
             AND category_id = '{category}'
-            ORDER BY -nutriscore;
+            ORDER BY -product.nutriscore;
             """
             )
         menu_choice = []
@@ -199,9 +203,9 @@ class Menus:
                 for x in result:
                     try:
                         self.display.display_products(
-                            x[0], x[1], x[2], x[6]
+                            x[1], x[3], x[4], x[8]
                         )
-                        menu_choice.append(str(x[0]))
+                        menu_choice.append(str(x[1]))
                     except ValueError:
                         print(ERROR['no_products'])
                 menu_choice.append('0')
